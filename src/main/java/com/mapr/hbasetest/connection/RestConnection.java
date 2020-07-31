@@ -17,13 +17,13 @@ public class RestConnection {
   }
 
   private Client getAuthorizedClient(boolean sslEnabled) {
-    Cluster cluster = new Cluster(Collections.singletonList("node3.cluster.com:8080"));
+    Cluster cluster = new Cluster(Collections.singletonList("node11.cluster.com:8080"));
     Client restClient = new Client(cluster, sslEnabled);
-    GSSTokenGenerator tokenGenerator = new GSSTokenGenerator();
-    byte[] token = tokenGenerator.createToken("HTTP/node3.cluster.com", "HTTP/node3.cluster.com@NODE3");
-    String encoding = Base64.getEncoder().encodeToString(token);
-//    restClient.addBasicAuthExtraHeader("mapr", "mapr");
-    restClient.addExtraHeader ("Authorization", "Negotiate " + encoding);
+//    GSSTokenGenerator tokenGenerator = new GSSTokenGenerator();
+//    byte[] token = tokenGenerator.createToken("HTTP/node3.cluster.com", "HTTP/node3.cluster.com@NODE3");
+//    String encoding = Base64.getEncoder().encodeToString(token);
+    restClient.addBasicAuthExtraHeader("mapr", "mapr");
+//    restClient.addExtraHeader ("Authorization", "Negotiate " + encoding);
     return restClient;
   }
 
