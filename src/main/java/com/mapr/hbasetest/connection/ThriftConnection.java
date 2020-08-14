@@ -50,17 +50,17 @@ public class ThriftConnection {
 
   public Hbase.Client createClient() throws TTransportException, SaslException, MapRClientSecurityException {
     if (http) {
-      String encoding = Base64.getEncoder().encodeToString("mapr:mapr".getBytes(Charset.forName("UTF-8")));
-//      GSSTokenGenerator tokenGenerator = new GSSTokenGenerator();
-//      byte[] token = tokenGenerator.createToken("HTTP/node3.cluster.com", "HTTP/node3.cluster.com@NODE3");
-//      String encoding = Base64.getEncoder().encodeToString(token);
+//      String encoding = Base64.getEncoder().encodeToString("mapr:mapr".getBytes(Charset.forName("UTF-8")));
+      GSSTokenGenerator tokenGenerator = new GSSTokenGenerator();
+      byte[] token = tokenGenerator.createToken("HTTP/node10.cluster.com", "HTTP/node10.cluster.com@NODE3");
+      String encoding = Base64.getEncoder().encodeToString(token);
 
-      String url = "https://node5.cluster.com:9090";
+      String url = "https://node10.cluster.com:9090";
 
       httpClient = new THttpClient(url);
 //      httpClient.setCustomHeader  ("Authorization", "Basic " + encoding);
-//      httpClient.setCustomHeader  ("Authorization", "Negotiate " + encoding);
-      addMaprAuthHeader(httpClient);
+      httpClient.setCustomHeader  ("Authorization", "Negotiate " + encoding);
+//      addMaprAuthHeader(httpClient);
       httpClient.open();
       TProtocol protocol = new TBinaryProtocol(httpClient);
       return new Hbase.Client(protocol);

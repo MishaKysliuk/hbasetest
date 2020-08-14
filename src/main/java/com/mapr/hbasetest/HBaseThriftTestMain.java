@@ -29,8 +29,8 @@ public class HBaseThriftTestMain {
     Hbase.Client client = connection.createClient();
     System.out.println("scanning tables...");
     HBaseThriftUtil util = new HBaseThriftUtil(client);
-    String tableName = "test1";
-    util.createTable(tableName, columnFamilies);
+//    String tableName = "test1";
+//    util.createTable(tableName, columnFamilies);
     for (ByteBuffer buffer : client.getTableNames()) {
       System.out.println(new String(buffer.array()));
     }
