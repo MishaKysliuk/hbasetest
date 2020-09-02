@@ -1,7 +1,11 @@
 package com.mapr.hbasetest.connection;
 
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.rest.client.Client;
 import org.apache.hadoop.hbase.rest.client.Cluster;
+import org.apache.hadoop.hbase.rest.client.RemoteAdmin;
 import org.apache.hadoop.hbase.rest.client.Response;
 
 import java.io.IOException;
@@ -11,9 +15,20 @@ import java.util.Collections;
 public class RestConnection {
 
   private Client restClient;
+  private Configuration hbaseConfig;
+  private RemoteAdmin remoteAdmin;
+
 
   public RestConnection(boolean sslEnabled) {
     restClient = getAuthorizedClient(sslEnabled);
+    Configuration conf = new Configuration();
+    conf.setClassLoader(HBaseConfiguration.class.getClassLoader());
+    String hbaseSiteLocation = "/opt/mapr/hbase/hbase-1.4.12/conf/hbase-site.xml";
+    conf.addResource(new Path(hbaseSiteLocation));
+
+    hbaseConfig = HBaseConfiguration.create();
+    hbaseConfig = conf;
+    remoteAdmin = new RemoteAdmin(restClient, hbaseConfig);
   }
 
   private Client getAuthorizedClient(boolean sslEnabled) {
@@ -29,6 +44,10 @@ public class RestConnection {
 
   public Response get(String path) throws IOException {
     return restClient.get(path);
+  }
+
+  public RemoteAdmin getRemoteAdmin() {
+    return remoteAdmin;
   }
 
   public Client getClient() {

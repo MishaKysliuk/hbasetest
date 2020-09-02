@@ -14,15 +14,16 @@ public class HBaseRestTestMain {
 
     RestConnection connection = new RestConnection(true);
     Client client = connection.getClient();
+    System.out.println(connection.getRemoteAdmin().getRestVersion());
 
-    String tableName = "/emp";
-    tableName = tableName.replaceAll("/", "%2F");
-    try (RemoteHTable rTable = new RemoteHTable(client, tableName)) {
-      Put put = new Put("row1".getBytes());
-      put.addColumn("cf1".getBytes(), "qual1".getBytes(), "value1".getBytes());
-
-      rTable.put(put);
-    }
+//    String tableName = "/emp";
+//    tableName = tableName.replaceAll("/", "%2F");
+//    try (RemoteHTable rTable = new RemoteHTable(client, tableName)) {
+//      Put put = new Put("row1".getBytes());
+//      put.addColumn("cf1".getBytes(), "qual1".getBytes(), "value1".getBytes());
+//
+//      rTable.put(put);
+//    }
 
 
     //connection.printResponse(connection.get("/version/cluster"));

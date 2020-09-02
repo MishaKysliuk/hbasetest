@@ -19,7 +19,7 @@ public class HbaseTestConnection {
   private void initialize() {
     Configuration conf = new Configuration();
     conf.setClassLoader(HBaseConfiguration.class.getClassLoader());
-    String hbaseSiteLocation = "/opt/mapr/hbase/hbase-1.1.13/conf/hbase-site.xml";
+    String hbaseSiteLocation = "/opt/mapr/hbase/hbase-1.4.12/conf/hbase-site.xml";
     conf.addResource(new Path(hbaseSiteLocation));
 
     hbaseConfig = HBaseConfiguration.create();

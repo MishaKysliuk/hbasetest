@@ -52,10 +52,10 @@ public class ThriftConnection {
     if (http) {
 //      String encoding = Base64.getEncoder().encodeToString("mapr:mapr".getBytes(Charset.forName("UTF-8")));
       GSSTokenGenerator tokenGenerator = new GSSTokenGenerator();
-      byte[] token = tokenGenerator.createToken("HTTP/node10.cluster.com", "HTTP/node10.cluster.com@NODE3");
+      byte[] token = tokenGenerator.createToken("mapr/node3.cluster.com", "mapr/node3.cluster.com@NODE3");
       String encoding = Base64.getEncoder().encodeToString(token);
 
-      String url = "https://node10.cluster.com:9090";
+      String url = "https://node3.cluster.com:9090";
 
       httpClient = new THttpClient(url);
 //      httpClient.setCustomHeader  ("Authorization", "Basic " + encoding);
