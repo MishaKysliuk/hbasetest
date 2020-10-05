@@ -14,7 +14,7 @@ public class HbaseJavaApiTestMain {
     HbaseTestConnection testConnection = new HbaseTestConnection();
     try(Connection connection = ConnectionFactory.createConnection(testConnection.getHbaseConfig())) {
       try(HBaseAdmin admin = new HBaseAdmin(connection)) {
-        admin.normalize();
+//        admin.normalize();
       }
     }
     System.out.println(testConnection.isHbaseAvailable());
